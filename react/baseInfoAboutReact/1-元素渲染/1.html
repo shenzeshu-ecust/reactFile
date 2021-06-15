@@ -18,17 +18,19 @@
     }
     function getGreeting(user) {
         if(user) {
-            return <h1></h1>
+            return <h1>Hello,{formatName(user)}!</h1>
         }
+        return <h1>Hello,Stranger.</h1>
     }
     const user = {
         firstName : 'Harper',
         lastName : 'Perez'
     }
     const element = (
-        <h1>
-            Hello:{formatName(user)}!
-            </h1>
+        <div>
+             Hello:{formatName(user)}!
+            {getGreeting(user)}
+        </div>
     )
     ReactDOM.render(
         element,
