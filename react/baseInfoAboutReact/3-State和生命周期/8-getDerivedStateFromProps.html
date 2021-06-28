@@ -30,47 +30,44 @@
             let { count } = this.state
             this.setState({ count: count + 1 });
         }
-        unMount= ()=> {
+        unMount = () => {
             ReactDOM.unmountComponentAtNode(document.getElementById('root'))
         }
-        force = ()=> {
+        force = () => {
             // 强制更新下
             console.log('Count---强制更新下');
             this.forceUpdate()
         }
-        // 组件将要挂载的钩子
-        componentWillMount() {
-            console.log('Count---componentWillMount');
-            
+        // ============== 需要返回一个状态对象 或 null   ===================
+        static getDerivedStateFromProps(nextProps, prevState) { // 这个钩子会导致代码冗余
+            console.log('Count---getDerivedStateFromProps',nextProps,prevState); 
+            // 状态值 就会只取决于props
+            // 组件内不会更新了
+            // 如果 return null 就可以继续更新
+            return nextProps 
         }
+        
+
+
         // 组件已经挂载的钩子
         componentDidMount() {
             console.log('Count---componentDidMount');
-            
+
         }
-        // 控制组件数据更新 - 相当于阀门 不写该函数默认返回true
-        // 必须返回一个布尔值
-        // true 继续  false 停止
-        // setState()进入
         shouldComponentUpdate(nextProps, nextState, nextContext) {
             console.log('Count---shouldComponentUpdate');
-             return true
+            return true
         }
-        // 组件将要更新 ————forceUpdate()  强制更新 跳过shouldComponentUpdate()
-        componentWillUpdate() {
-            console.log('Count---componentWillUpdate');
-        }
-        // 组件完成更新
+
         componentDidUpdate(prevProps, prevState) {
             console.log('Count---componentDidUpdate');
-            
+
         }
-        // 组件将要卸载
         componentWillUnmount() {
             console.log('Count---componentWillUnmount');
-            
+
         }
-        // 初次渲染、数据更新时
+
         render() {
             console.log('Count---render');
 
@@ -86,8 +83,8 @@
             )
         }
     }
-    
-    ReactDOM.render(<Count />, document.getElementById('root'))
+
+    ReactDOM.render(<Count count="199"/>, document.getElementById('root'))
 
 </script>
 
