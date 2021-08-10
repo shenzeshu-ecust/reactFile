@@ -41,6 +41,7 @@ function isApiError(error: Error) {
     return false;
 }
 /**
+ * 
  * window.foo = 1;
 
 // index.ts:1:8 - error TS2339: Property 'foo' does not exist on type 'Window & typeof globalThis'.

@@ -21,3 +21,19 @@ let nums = [-1,0,3,5,9,12], target = -1
     else return -1
 };
 console.log(search(nums,target));
+
+let arr= [ {name:'szs',age:23},[2,3,4],5]
+let obj = {
+    name:'szs',
+    children: {
+        "jack":'boy',
+        'nancy':'girl'
+    }
+
+}
+for(let key in obj) {
+    console.log(key);
+}
+
+console.log(arr[0]);
+console.log(obj['children']);

@@ -43,56 +43,83 @@ var quicksort = function(arr){
     return quicksort(leftArr).concat(point,quicksort(rightArr));
 
 };
-function sort(arr,left,right){
-    if(left>=right){
-        return
-    } // 不能少  //如果左边的索引大于等于右边的索引说明整理完毕
-    let pivot=arr[left]
-    let i=left
-    let j=right
-    while(i<j){
-        while(i<j&&arr[j]>=pivot) j--; // 右边开始 大于等于基准值 不交换位置。
-        while(i<j&&arr[i]<=pivot) i++  // 左边 如果小于基准值 不交换位置
-        if(i<j){
-            let temp=arr[i]
-            arr[i]=arr[j]
-            arr[j]=temp
-        }
+// function sort(arr,left,right){
+//     if(left>=right){
+//         return
+//     } // 不能少  //如果左边的索引大于等于右边的索引说明整理完毕
+//     let pivot=arr[left]
+//     let i=left
+//     let j=right
+//     while(i<j){
+//         while(i<j&&arr[j]>=pivot) j--; // 右边开始 大于等于基准值 不交换位置。
+//         while(i<j&&arr[i]<=pivot) i++  // 左边 如果小于基准值 不交换位置
+//         if(i<j){
+//             let temp=arr[i]
+//             arr[i]=arr[j]
+//             arr[j]=temp
+//         }
       
-    }
-    let temp=arr[i]
-    arr[i]=arr[left]
-    arr[left]=temp
-    sort(arr,left,i-1);
-    sort(arr,i+1,right);
-}
-let nums = [1,4,2,4,6,3,7]
-sort(nums,0,6)
-console.log(nums);
-let arr = [9,6,7,5,0,2,1]
-console.log(quicksort(arr));
+//     }
+//     let temp=arr[i]
+//     arr[i]=arr[left]
+//     arr[left]=temp
+//     sort(arr,left,i-1);
+//     sort(arr,i+1,right);
+// }
+// let nums = [1,4,2,4,6,3,7]
+// sort(nums,0,6)
+// console.log(nums);
+// let arr = [9,6,7,5,0,2,1]
+// console.log(quicksort(arr));
 
-var quickSort = function(nums,left,right) {
-    if(left>=right) return
-    let i = left;
-    let j = right;
-    let pivot = left
-    while(i<j) {
-        while(i<j&&nums[j]>=nums[pivot]) j--;
-        while(i<j&& nums[i]<=nums[pivot]) i++;
-        if(i<j) {
-            let tmp = nums[i]
-            nums[i] = nums[j]
-            nums[j] = tmp
+function quickSort(arr, start, end) {
+    if (start > end) {
+        return;
+    }
+    let i = start,
+        j = end,
+        pivot = arr[start]; //存放基准数
+    while (i !== j) {
+        // 从右边开始，找第一个小于基准的位置
+        while (arr[j] >= pivot && i < j) {
+            j--;
+        }
+        // 从左边开始，找第一个大于基准的位置
+        while (arr[i] <= pivot && i < j) {
+            i++
+        }
+        // 交换两个数
+        if (i < j) {
+            let tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
         }
     }
-    let tmp = nums[i]
-    nums[i] = nums[pivot]
-    nums[pivot] = tmp
-    quickSort(nums,0,i-1)
-    quickSort(nums,i+1,right)
+    // 最后把基准数归位
+    arr[start] = arr[i];
+    arr[i] = pivot;
+    // 递归处理左边
+    quickSort(arr, start, i - 1);
+    // 递归处理右边
+    quickSort(arr, i + 1, end);
 }
+function quickSortNew(arr,left,right) {
+    if(left > right) return
+    let i = left
+    let j = right
+    let pivot = arr[left]
+    while(i!==j) {
+        while(i<j && arr[j]>=pivot) j--
+        while(i<j && arr[i]<=pivot) i++
+        [arr[i],arr[j]] = [arr[j],arr[i]]
+    }
+    arr[left] = arr[i]
+    arr[i] = pivot
+    quickSortNew(arr,left,i-1)
+    quickSortNew(arr,i+1,right)
 
-let arrnew = [1,4,2,4,6,4,8]
-quickSort(arrnew,0,6)
-console.log(arrnew);
+
+}
+var arr222 = [6, 1, 2, 7, 9, 3, 4, 5, 10, 8];
+quickSortNew(arr222, 0, arr222.length - 1);
+console.log(arr222);

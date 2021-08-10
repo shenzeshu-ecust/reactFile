@@ -8,7 +8,21 @@ import "./index.css";
 //     效率高的做法： 只有当组件的state 或props 数据发生改变的时候才重新render
 // 原因 component中的生命周期函数  shouldComponentUpdate()总是返回true
 class Demo extends PureComponent {
-  state = { username: "JACK", stus: ["小鲤鱼", "小鲸鱼", "小黑鱼"] };
+  
+  
+// hasError用于标识子组件是否有错误
+  state = { username: "JACK", stus: ["小鲤鱼", "小鲸鱼", "小黑鱼"] ,hasError:''};
+  // 错误边界
+  // 当Demo的子组件出现报错，会触发,并携带错误信息
+  // 只能处理生命周期函数内的函数 （一般就是render()）
+  static getDerivedStateFromError (error) { // 只适用于生产环境
+    console.log(error);
+    return {hasError:error}
+  }
+  componentDidCatch(error, info) {
+    console.log('统计错误次数，返回给服务器，用于通知编码人员进行bug的解决');
+  }
+  
   change = () => {
     this.setState({ username: "Tom" });
     // this.setState({}); // 即使这里 this.setState({}) 没有改变值 也会触发子组件的render
@@ -55,10 +69,15 @@ class Demo extends PureComponent {
     return (
       <div className="parent">
         <h3>我是Demo组件</h3>
-        <h4>我的用户名：{username}</h4>
-        <h4>小鱼们：{this.state.stus.join(' ')}</h4>
-        <button onClick={this.change}>改变用户名</button>
-        <button onClick={this.addFish}>添加小鱼</button>
+        {this.state.hasError ? <h2>有错误</h2> : 
+        <div>          
+          <h4>我的用户名：{username}</h4>
+          <h4>小鱼们：{this.state.stus.join(' ')}</h4>
+          <button onClick={this.change}>改变用户名</button>
+          <button onClick={this.addFish}>添加小鱼</button>
+        </div>
+        }
+        
 
         <B username={"啦啦啦"} />
       </div>

@@ -38,6 +38,7 @@ private int firstLargeOrEquals(int[] arr, int target) {
     if (arr[l] >= target && (l == 0 || arr[l - 1] < target)) return l; // >=
     return -1;
 }
+
 // 查找最后一个小于等于给定值的元素
 private int lastLessOrEquals(int[] arr, int target) {
     int l = 0, r = arr.length - 1;
@@ -50,15 +51,59 @@ private int lastLessOrEquals(int[] arr, int target) {
     return -1;
 }
  */
-let firstEquals = function(arr,target) {
+
+// 查找第一个值等于给定值的元素
+
+let firstEquals = function (arr, target) {
     let left = 0
-    let right = arr.length -1
-    while(left < right) {
-        let mid = Math.floor((left+ right)/2)
-        if(arr[mid]<target) left = mid+1
+    let right = arr.length - 1
+    while (left < right) {
+        let mid = left + Math.floor((right - left) / 2)
+        if (arr[mid] < target) left = mid + 1
         else right = mid //收缩右边界不影响 first equals
     }
-    if(arr[left] == target && (left == 0 || arr[left -1] < target)) return left
+    if (arr[left] == target && (left == 0 || arr[left - 1] < target)) return left
     return -1
 }
-console.log( firstEquals([1,3,4,6,6,8],2) );
+// 查找最后一个值等于给定值的元素
+
+function lastEquals(arr, target) {
+    let l = 0, r = arr.length - 1
+    while (l < r) {
+        let mid = l + Math.floor((r - l + 1) / 2)
+        if (arr[mid] > target) r = mid - 1
+        else l = mid
+    }
+    if (arr[l] == target && (l == arr.length - 1 || arr[l + 1] > target)) return l;
+    return -1;
+}
+// 查找第一个大于等于给定值的元素
+
+function firstLargeOrEquals(arr, target) {
+    let l = 0, r = arr.length - 1;
+    while (l < r) {
+        let mid = l + Math.floor((r - l) / 2);
+        if (arr[mid] < target) l = mid + 1;
+        else r = mid; // 收缩右边界不影响 first equals
+    }
+    if (arr[l] >= target && (l == 0 || arr[l - 1] < target)) return l; // >=
+    return -1;
+}
+// 查找第一个小于等于给定值的元素
+
+function lastLessOrEquals(arr, target) {
+    let l = 0, r = arr.length - 1;
+    while (l < r) {
+        let mid = l + Math.floor((r - l + 1) / 2);
+        if (arr[mid] > target) r = mid - 1;
+        else l = mid; // 收缩左边界不影响 last equals
+    }
+    if (arr[l] <= target && (l == arr.length - 1 || arr[l + 1] > target)) return l; // <=
+    return -1;
+}
+console.log(firstEquals([1, 3, 4, 6, 6, 8], 6));
+console.log(lastEquals([1, 3, 4, 6, 6, 8], 6));
+console.log(firstLargeOrEquals([1, 3, 4, 6, 6, 8], 5));
+console.log(lastLessOrEquals([1, 3, 4, 6, 6, 8], 7));
+
+

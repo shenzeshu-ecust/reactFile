@@ -38,7 +38,7 @@ function Demo() {
   const [count, setCount] = React.useState(0);
   const [name, setName] = React.useState("Tom");
   // React.useEffect 相当于componentDidMount + componentDidUpdate + componentWillUnmount
-const myRef = React.useRef()
+  const myRef = React.useRef();
   React.useEffect(() => {
     let timer = setInterval(() => {
       setCount((count) => ++count);
@@ -64,7 +64,7 @@ const myRef = React.useRef()
     ReactDOM.unmountComponentAtNode(document.querySelector("#root"));
   }
   function show() {
-      alert(myRef.current.value)
+    alert(myRef.current.value);
   }
   return (
     <div>
@@ -75,7 +75,6 @@ const myRef = React.useRef()
       <button onClick={change}>点我改名</button>
       <button onClick={unLoad}>卸载组件</button>
       <button onClick={show}>显示input</button>
-
     </div>
   );
 }
