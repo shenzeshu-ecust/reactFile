@@ -53,6 +53,7 @@ var permute = function(nums) {
         for (let i = 0; i < k; i++ ) {
             if(used[i]) continue;
             path.push(n[i]);
+            console.log(path);
             used[i] = true; // 同支
             backtracking(n, k, used);
             path.pop();
@@ -60,7 +61,33 @@ var permute = function(nums) {
         }
     }
 };
-
+var permute = function(nums) {
+    const res = []
+    const path = []
+    const used = new Array(nums.length).fill(false)
+  
+    backrack(path, used)
+  
+    function backrack(path, used) {
+      console.log(path)
+      if(path.length === nums.length) {
+        res.push(path.slice())
+      }
+  
+      for(let i = 0; i < nums.length; i++) {
+        if(used[i]) { 
+          continue 
+        }
+        used[i] = true
+        path.push(nums[i])
+        backrack(path, used)
+        path.pop()
+        used[i] = false
+      }
+    }
+  
+    return res
+  };
 console.log('====================================');
 console.log(permute([1,2,3]));
 console.log('====================================');
