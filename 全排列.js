@@ -22,20 +22,20 @@ function fullpermutate(str) {
     return result;
 }
 // console.log(fullpermutate('abc'));
-function quanpailie(str) {
+
+function fullpermutateMine(str) {
     let ans = []
-    if(str.length>1) {
-        for(let i = 0;i<str.length;i++) {
-            let left = str[i]
-            let rest = str.slice(0,i) + str.slice(i+1)
-            let preRes = quanpailie(rest)
-            for(let j = 0;j<preRes.length;j++) {
-                ans.push(left + preRes[j])
-            }
-        }
-    } else if(str.length == 1) {
+    if(str.length === 1) {
         ans.push(str)
+    }
+    for(let i = 0;i<str.length;i++) {
+        let left = str[i]
+        let rest = str.slice(0,i) + str.slice(i+1)
+        let tmp = fullpermutateMine(rest)
+        for(let j = 0; j < tmp.length; j++) {
+            ans.push(left + tmp[j])
+        }
     }
     return ans
 }
-console.log(quanpailie('abc'))
+console.log(fullpermutateMine('abc'))

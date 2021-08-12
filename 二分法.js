@@ -89,7 +89,7 @@ function firstLargeOrEquals(arr, target) {
     if (arr[l] >= target && (l == 0 || arr[l - 1] < target)) return l; // >=
     return -1;
 }
-// 查找第一个小于等于给定值的元素
+// 查找最后一个小于等于给定值的元素
 
 function lastLessOrEquals(arr, target) {
     let l = 0, r = arr.length - 1;
